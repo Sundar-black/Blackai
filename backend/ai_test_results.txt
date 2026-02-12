@@ -1,0 +1,4 @@
+Key Prefix: sk-or-v1-c
+Chat Success: Hi there! How can I help you today?
+
+Embedding Success: 1536

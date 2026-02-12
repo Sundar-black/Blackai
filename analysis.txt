@@ -1,0 +1,13 @@
+﻿Analyzing black_ai...                                           
+
+   info - Statements in an if should be enclosed in a block - lib\feature\service\node_auth_service.dart:64:11 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\feature\service\node_auth_service.dart:66:11 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\feature\service\node_auth_service.dart:68:11 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\feature\service\node_auth_service.dart:70:11 - curly_braces_in_flow_control_structures
+warning - Unused import: 'package:provider/provider.dart' - lib\feature\view\login_screen.dart:14:8 - unused_import
+warning - Unused import: 'package:black_ai/feature/view/login_screen.dart' - lib\feature\view\new_password_screen.dart:5:8 - unused_import
+warning - Unused import: 'package:black_ai/core/extensions/navigation_extension.dart' - lib\feature\view\new_password_screen.dart:9:8 - unused_import
+warning - Unused import: 'package:image_picker/image_picker.dart' - lib\feature\view\profile_screen.dart:11:8 - unused_import
+   info - Statements in an if should be enclosed in a block - lib\feature\view\profile_screen.dart:64:11 - curly_braces_in_flow_control_structures
+warning - Unused import: 'package:provider/provider.dart' - lib\feature\view\signup_screen.dart:12:8 - unused_import
+
