@@ -1,6 +1,6 @@
 fastapi
-uvicorn
-gunicorn; sys_platform != 'win32'
+uvicorn[standard]
+gunicorn
 motor
 dnspython
 redis
