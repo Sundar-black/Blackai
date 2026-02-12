@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' as io;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -96,7 +97,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     setState(() => _isEditing = false);
 
-    final res = await NodeAuthService.updateProfile(name: name);
+    // If avatar was changed (it is now a base64 string or file path), send it.
+    // _avatar stores the current display value.
+    // Ideally we should have a separate _newAvatar variable, but for now:
+    String? avatarToSend;
+    if (_avatar != null && !_avatar!.startsWith('http')) {
+      avatarToSend = _avatar;
+    }
+
+    final res = await NodeAuthService.updateProfile(
+      name: name,
+      avatar: avatarToSend,
+    );
 
     if (!mounted) return;
 
@@ -181,9 +193,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _pickImage() async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Image picking disabled in this version.')),
-    );
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 800,
+        maxHeight: 800,
+        imageQuality: 85,
+      );
+
+      if (image != null) {
+        final bytes = await image.readAsBytes();
+        final base64Image = "data:image/jpeg;base64,${base64Encode(bytes)}";
+
+        setState(() {
+          _avatar = base64Image;
+        });
+      }
+    } catch (e) {
+      debugPrint("Error picking image: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error picking image: $e')));
+      }
+    }
   }
 
   @override
