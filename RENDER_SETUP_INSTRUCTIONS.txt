@@ -1,0 +1,22 @@
+Please add these Environment Variables in your Render Dashboard:
+(Go to your Service -> "Environment" tab -> "Add Environment Variable")
+
+1. MONGODB_URL
+   - Value: (The long string starting with mongodb+srv:// from your local .env file)
+
+2. OPENAI_API_KEY
+   - Value: (Your API key starting with sk-...)
+
+3. SECRET_KEY
+   - Value: (Generate a random string, e.g., using a password generator)
+   - Or just use: supersecretkey12345
+
+4. ACCESS_TOKEN_EXPIRE_MINUTES
+   - Value: 10080
+
+5. QDRANT_URL
+   - Value: (Your Qdrant Cloud URL if you have one, or remove Qdrant code if running locally)
+   - Note: Render free tier doesn't support persistent storage easily for local Qdrant.
+   - If using Qdrant Cloud, add QDRANT_API_KEY as well.
+
+Important: Without MONGODB_URL, your backend will crash on startup!
