@@ -22,6 +22,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from fastapi import Request
+from fastapi.responses import JSONResponse
+import logging
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    import traceback
+    error_msg = f"Global Exception: {str(exc)}\n{traceback.format_exc()}"
+    print(error_msg)
+    logging.error(error_msg)
+    return JSONResponse(
+        status_code=500,
+        content={"message": "Internal Server Error", "detail": str(exc)},
+    )
+
 # Routes
 app.include_router(auth_router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
 app.include_router(user_router, prefix=f"{settings.API_V1_STR}/users", tags=["users"])
@@ -29,15 +44,20 @@ app.include_router(chat_router, prefix=f"{settings.API_V1_STR}/chat", tags=["cha
 
 @app.on_event("startup")
 async def startup_event():
-    await connect_to_mongo()
+    try:
+        await connect_to_mongo()
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"Startup failed: {e}")
 
 @app.on_event("shutdown")
 async def shutdown_event():
     await close_mongo_connection()
 
 @app.get("/")
-def read_root():
-    return {"message": "BlackAI Backend Running"}
+def root():
+    return {"message": "BlackAI backend is running 🚀"}
 
 @app.get("/health")
 def health_check():
