@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+gunicorn
+motor
+dnspython
+redis
+qdrant-client
+python-dotenv
+pydantic-settings
+beanie
+python-multipart
+passlib[bcrypt]
+python-jose[cryptography]
+bcrypt
+openai
+email-validator
+httpx
+# Removed langchain to save memory on cloud free tiers
