@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from app.core.database import db
 from app.models.user import UserInDB, UserUpdate
-from app.core.security import get_current_user # Need to implement this dependency
+# from app.core.security import get_current_user # Replaced by local dependency below
 from typing import List
 
 router = APIRouter()
